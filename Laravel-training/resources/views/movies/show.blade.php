@@ -2,19 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Movie Details</title>
+    <title>Show Movie</title>
 </head>
 <body>
-    <h1>Movie Details</h1>
-    <p>Title: {{ $movie->title }}</p>
-    <p>Release Date: {{ $movie->release_date }}</p>
-    <p>Description: {{ $movie->description }}</p>
-    <a href="{{ route('movies.edit', $movie->id) }}">Edit</a>
-    <form action="{{ route('movies.destroy', $movie->id) }}" method="POST" style="display:inline;">
-        @csrf
-        @method('DELETE')
-        <button type="submit">Delete</button>
-    </form>
+    <h1>{{ $movie->title }}</h1>
+    <p><strong>Release Date:</strong> {{ $movie->release_date->format('Y-m-d') }}</p>
+    <p><strong>Director:</strong> {{ $movie->director->name }}</p>
     <a href="{{ route('movies.index') }}">Back to List</a>
 </body>
 </html>

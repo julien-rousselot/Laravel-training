@@ -20,7 +20,18 @@ class DirectorController extends Controller
 
     public function store(Request $request)
     {
-        // Validation et stockage du directeur
+        // Validation des données
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Création et sauvegarde du réalisateur
+        $director = new Director();
+        $director->name = $request->input('name');
+        $director->save();
+
+        // Redirection après la création
+        return redirect()->route('directors.index')->with('success', 'Director created successfully.');
     }
 
     public function show($id)
@@ -37,11 +48,27 @@ class DirectorController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validation et mise à jour du directeur
+        // Validation des données
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Recherche du réalisateur et mise à jour des données
+        $director = Director::findOrFail($id);
+        $director->name = $request->input('name');
+        $director->save();
+
+        // Redirection après la mise à jour
+        return redirect()->route('directors.index')->with('success', 'Director updated successfully.');
     }
 
     public function destroy($id)
     {
-        // Suppression du directeur
+        // Recherche du réalisateur et suppression
+        $director = Director::findOrFail($id);
+        $director->delete();
+
+        // Redirection après la suppression
+        return redirect()->route('directors.index')->with('success', 'Director deleted successfully.');
     }
 }

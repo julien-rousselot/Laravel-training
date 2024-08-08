@@ -24,12 +24,12 @@ class MovieController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'release_year' => 'required|integer',
+            'release_year' => 'nullable|integer',
             'director_id' => 'required|exists:directors,id'
         ]);
 
         Movie::create($request->all());
-        return redirect()->route('movies.index');
+        return redirect()->route('movies.index')->with('success', 'Movie created successfully.');
     }
 
     public function edit(Movie $movie)
@@ -42,17 +42,17 @@ class MovieController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'release_year' => 'required|integer',
+            'release_year' => 'nullable|integer',
             'director_id' => 'required|exists:directors,id'
         ]);
 
         $movie->update($request->all());
-        return redirect()->route('movies.index');
+        return redirect()->route('movies.index')->with('success', 'Movie updated successfully.');
     }
 
     public function destroy(Movie $movie)
     {
         $movie->delete();
-        return redirect()->route('movies.index');
+        return redirect()->route('movies.index')->with('success', 'Movie deleted successfully.');
     }
 }

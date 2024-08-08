@@ -11,6 +11,8 @@ class Movie extends Model
 
     protected $fillable = ['title', 'release_year', 'director_id'];
 
+    protected $dates = ['release_date'];
+
     public function director()
     {
         return $this->belongsTo(Director::class);
