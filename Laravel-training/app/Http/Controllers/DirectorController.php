@@ -20,12 +20,11 @@ class DirectorController extends Controller
 
     public function store(Request $request)
     {
-        // Validation des données
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        // Création et sauvegarde du réalisateur
+        // Create and save the director
         $director = new Director();
         $director->name = $request->input('name');
         $director->save();
